@@ -4,7 +4,7 @@ Makine öğrenmesi ile argo dil algılayan model
 
 ## Ekran Görüntüleri
 
-![Ana Sayfa](screenshots/anasayfa.png)
+![Ana Sayfa](shop/screenshots/anasayfa.png)
 *Ana sayfa görünümü*
 
 ## Özellikler
