@@ -1,0 +1,115 @@
+{% extends 'home.html' %}
+{% block title %}Metin Analizi{% endblock %}
+{% block icerik %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header text-center p-4 bg-gradient-primary border-0 rounded-top-4" 
+                     style="background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%);">
+                    <h2 class="text-white mb-0">
+                        <i class="fas fa-shield-alt me-2"></i>Hakaret Tespit Sistemi
+                    </h2>
+                    <p class="text-white-50 mt-2 mb-0">Yapay zeka ile içerik analizi yapın</p>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form method="POST" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group mb-4">
+                            <label for="mesaj" class="form-label fw-bold">
+                                <i class="fas fa-pen me-2"></i>Metninizi Girin:
+                            </label>
+                            <div class="input-group">
+                                <textarea class="form-control form-control-lg shadow-sm" 
+                                          id="mesaj" 
+                                          name="mesaj" 
+                                          rows="4"
+                                          placeholder="Analiz etmek istediğiniz metni buraya yazın..."
+                                          required></textarea>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 py-2 shadow-sm">
+                                <i class="fas fa-search me-2"></i>Analiz Et
+                            </button>
+                        </div>
+                    </form>
+
+                    {% if skor is not None and sonuc is not None %}
+                        <div class="result-section mt-5">
+                            <div class="result-card p-4 rounded-4 {% if sonuc == 1 %}bg-danger bg-opacity-10{% else %}bg-success bg-opacity-10{% endif %}">
+                                <h4 class="text-center mb-4">
+                                    <i class="fas fa-chart-bar me-2"></i>Analiz Sonucu
+                                </h4>
+                                
+                                <div class="row g-4">
+                                    <!-- Güven Skoru -->
+                                    <div class="col-md-6">
+                                        <div class="text-center">
+                                            <h5 class="mb-3">
+                                                <i class="fas fa-percentage me-2"></i>Güven Skoru
+                                            </h5>
+                                            <div class="score-display {% if sonuc == 1 %}text-danger{% else %}text-success{% endif %} fw-bold h3">
+                                                {{ skor|floatformat:1 }}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Sonuç -->
+                                    <div class="col-md-6">
+                                        <div class="text-center">
+                                            <h5 class="mb-3">
+                                                <i class="fas fa-flag me-2"></i>Sonuç
+                                            </h5>
+                                            <div class="p-3 rounded-4 {% if sonuc == 1 %}bg-danger text-white{% else %}bg-success text-white{% endif %}">
+                                                {% if sonuc == 1 %}
+                                                    <i class="fas fa-exclamation-triangle me-2"></i>Hakaret İçeriyor
+                                                {% else %}
+                                                    <i class="fas fa-check-circle me-2"></i>Hakaret İçermiyor
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control {
+        border: 2px solid #e2e8f0;
+        transition: all 0.3s ease;
+    }
+    .form-control:focus {
+        border-color: #2c5282;
+        box-shadow: 0 0 0 0.2rem rgba(44, 82, 130, 0.25);
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%);
+        border: none;
+        transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(44, 82, 130, 0.4);
+    }
+    .score-display {
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+    .result-card {
+        transition: all 0.3s ease;
+        animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+{% endblock %}
