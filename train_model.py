@@ -3,7 +3,8 @@ import pandas as pd
 import string
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_spli
+*.html linguist-documentation
 
 # Veriyi oku
 splits = {'train': 'train.csv'}
